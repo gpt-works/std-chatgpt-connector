@@ -1,7 +1,7 @@
 package com.zonief.stdgptconnector.controller;
 
-import com.zonief.gptconnectorcommons.beans.ConnectorRequest;
 import com.zonief.gptconnectorcommons.beans.gpt.GptResponse;
+import com.zonief.gptconnectorcommons.beans.gpt.MessageGpt;
 import com.zonief.stdgptconnector.service.GptService;
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -22,8 +22,7 @@ public class ConnectorController {
   private final GptService gptService;
 
   @PostMapping("/ask")
-  public ResponseEntity<Mono<GptResponse>> askQuestions(
-      @RequestBody List<ConnectorRequest> fullRequest) {
+  public ResponseEntity<Mono<GptResponse>> askQuestions(@RequestBody List<MessageGpt> fullRequest) {
     return ResponseEntity.ok(gptService.askQuestions(fullRequest));
   }
 }
