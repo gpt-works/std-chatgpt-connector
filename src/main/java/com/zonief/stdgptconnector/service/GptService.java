@@ -3,7 +3,7 @@ package com.zonief.stdgptconnector.service;
 import com.zonief.gptconnectorcommons.beans.gpt.GptResponse;
 import com.zonief.gptconnectorcommons.beans.gpt.MessageGpt;
 import com.zonief.stdgptconnector.beans.GptRequest;
-import com.zonief.stdgptconnector.config.GptProperties;
+import com.zonief.stdgptconnector.config.WebClientConfig;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,11 +17,11 @@ import reactor.core.publisher.Mono;
 public class GptService {
 
   private final WebClient gptWebClient;
-  private final GptProperties gptProperties;
+  private final WebClientConfig webClientConfig;
 
   public Mono<GptResponse> askQuestions(List<MessageGpt> requests) {
     return callGpt(
-        new GptRequest(gptProperties.getModel(), requests, gptProperties.getTemperature()));
+        new GptRequest(webClientConfig.getModel(), requests, webClientConfig.getTemperature()));
   }
 
   private Mono<GptResponse> callGpt(GptRequest request) {
