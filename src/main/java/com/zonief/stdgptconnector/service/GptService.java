@@ -20,6 +20,9 @@ public class GptService {
   private final WebClientConfig webClientConfig;
 
   public Mono<GptResponse> askQuestions(List<MessageGpt> requests) {
+    if(requests.isEmpty()) {
+      return Mono.empty();
+    }
     return callGpt(
         new GptRequest(webClientConfig.getModel(), requests, webClientConfig.getTemperature()));
   }

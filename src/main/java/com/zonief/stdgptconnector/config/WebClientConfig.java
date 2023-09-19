@@ -49,7 +49,7 @@ public class WebClientConfig {
 
   @Bean(name = "gptWebClient")
   public WebClient gptWebClient() {
-    final int size = 16 * 1024 * 1024;
+    final int size = 1024 * 1024;
     final ExchangeStrategies strategies =
         ExchangeStrategies.builder()
             .codecs(codecs -> codecs.defaultCodecs().maxInMemorySize(size))
