@@ -2,7 +2,7 @@ webclient:
   gpt:
     authorization: "Authorization"
     bearer: "Bearer"
-    apikey: "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"
+    apikey: "apikey value"
     model: "gpt-3.5-turbo"
     max-tokens: 3000
     temperature: 0.7
@@ -10,11 +10,11 @@ webclient:
     media-type: "application/json; charset=UTF-8"
     url: "https://api.openai.com/v1/chat/completions"
     organization: "OpenAI-Organization"
-    organization-value: "org-wzJHgPv7WSbsXQO3AuCYYCat"
+    organization-value: "organization value"
 
 logging:
   level:
-    root: debug
+    root: info
 
 server:
   port: 18080
