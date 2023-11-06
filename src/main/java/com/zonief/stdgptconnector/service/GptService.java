@@ -4,6 +4,7 @@ import com.zonief.gptconnectorcommons.beans.gpt.GptResponse;
 import com.zonief.gptconnectorcommons.beans.gpt.MessageGpt;
 import com.zonief.stdgptconnector.beans.GptRequest;
 import com.zonief.stdgptconnector.config.WebClientConfig;
+import java.time.Duration;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +21,7 @@ public class GptService {
   private final WebClientConfig webClientConfig;
 
   public Mono<GptResponse> askQuestions(List<MessageGpt> requests) {
-    if(requests.isEmpty()) {
+    if (requests.isEmpty()) {
       return Mono.empty();
     }
     return callGpt(
@@ -28,7 +29,14 @@ public class GptService {
   }
 
   private Mono<GptResponse> callGpt(GptRequest request) {
-    log.debug("Calling GPT with request: {}", request);
-    return gptWebClient.post().bodyValue(request).retrieve().bodyToMono(GptResponse.class);
+    log.info("Calling GPT with request: {}", request);
+    return gptWebClient
+        .post()
+        .bodyValue(request)
+        .retrieve()
+        .bodyToMono(GptResponse.class)
+        .timeout(Duration.ofSeconds(60))
+        .retry(3)
+        .doOnError(throwable -> log.error("Error calling GPT", throwable));
   }
 }
