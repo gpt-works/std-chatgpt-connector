@@ -6,13 +6,10 @@ name: Maven Package
 
 on:
   push:
-    branches: [ master,develop ]
-  release:
-    types: [ created ]
+    branches: [ develop ]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
     permissions:
       contents: read

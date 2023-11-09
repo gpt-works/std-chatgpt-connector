@@ -1,0 +1,40 @@
+name: Release Workflow
+
+on:
+  pull_request:
+    types: [ closed ]
+    branches:
+      - master
+
+jobs:
+
+  release:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.merged == true && github.ref == 'refs/heads/master'
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.merge_commit_sha }}
+          fetch-depth: '0'
+
+      - name: Bump version and push tag
+        id: auto_tag
+        uses: anothrNick/github-tag-action@1.67.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          WITH_V: false
+
+      - name: Echo tag for debugging
+        run: echo "Tag from auto_tag step is ${{ steps.auto_tag.outputs.tag }}"
+
+      - name: Create GitHub Release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+        with:
+          tag_name: ${{ steps.auto_tag.outputs.tag }}
+          release_name: Release ${{ steps.auto_tag.outputs.tag }}
+          body: |
+            Changes in this Release
+            - Auto-incremented version to ${{ steps.auto_tag.outputs.tag }}
