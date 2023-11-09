@@ -11,7 +11,7 @@
   </parent>
   <groupId>com.zonief</groupId>
   <artifactId>std-gpt-connector</artifactId>
-  <version>1.0.0-SNAPSHOT</version>
+  <version>1.0.1-SNAPSHOT</version>
   <name>std-gpt-connector</name>
   <description>std-gpt-connector</description>
   <properties>
