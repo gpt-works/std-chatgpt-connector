@@ -17,7 +17,7 @@
   <properties>
     <java.version>21</java.version>
     <lombok.version>1.18.30</lombok.version>
-    <gpt-connector-commons.version>1.4.0-SNAPSHOT</gpt-connector-commons.version>
+    <gpt-connector-commons.version>1.6.0-SNAPSHOT</gpt-connector-commons.version>
   </properties>
 
   <distributionManagement>
